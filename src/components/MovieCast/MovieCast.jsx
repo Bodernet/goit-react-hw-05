@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 
 const MovieCast = () => {
-  const { cast } = useParams;
+  const { cast } = useParams();
   return (
     <div>
       MovieCast
