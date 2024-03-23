@@ -1,4 +1,5 @@
-import { FiSearch } from "react-icons/fi";
+import css from "./SearchForm.module.css";
+
 const SearchForm = ({ onSetSearchQuery }) => {
   const onSubmit = (e) => {
     e.preventDefault();
@@ -11,20 +12,17 @@ const SearchForm = ({ onSetSearchQuery }) => {
     form.reset();
   };
   return (
-    <form onSubmit={onSubmit}>
+    <form className={css.form} onSubmit={onSubmit}>
       <div>
         <input
           name="inputValue"
           type="text"
-          autoComplete="off"
           required
-          placeholder="Input your movie"
+          placeholder="Input your movie name"
         />
       </div>
 
-      <button type="submit">
-        <FiSearch size={18} />
-      </button>
+      <button type="submit">Search</button>
     </form>
   );
 };

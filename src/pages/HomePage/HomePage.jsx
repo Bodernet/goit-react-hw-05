@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { getMovie } from "../components/API/apiTMDB";
-import MovieList from "../components/MovieList/MovieList";
+import { getMovie } from "../../components/API/apiTMDB";
+import MovieList from "../../components/MovieList/MovieList";
+import css from "./HomePage.module.css";
+
 const HomePage = () => {
-  const [movieList, setMovieList] = useState([]);
+  const [movies, setMovies] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const [isError, setIsError] = useState(false);
   // const [isLoadMore, setIsLoadMore] = useState(false);
-
   // const [errorMessage, setErrorMessage] = useState("");
   // const [queryPage, setQueryPage] = useState(1);
   // const [isScrollToTop, setScrollToTop] = useState(false);
@@ -19,7 +20,7 @@ const HomePage = () => {
         // setIsLoadMore(false);
 
         const data = await getMovie();
-        setMovieList(data.results);
+        setMovies(data.results);
       } catch (err) {
         // setIsError(true);
         // setErrorMessage(err);
@@ -32,7 +33,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <div>
+    <div className={css.homeContainer}>
       <h1>Trending today</h1>
       {/* {isLoading && <Loader />} */}
       {/* {isError && <ErrorMessage />} */}
@@ -40,7 +41,7 @@ const HomePage = () => {
       {/* {!isLoading &&
         !isError &&
         (movies.length ? ( */}
-      <MovieList movieList={movieList} />
+      <MovieList className={css.homeList} movies={movies} />
       {/* ) : ( */}
       {/* <p className={css.infoMessage}>No movies to display!</p>
         ))} */}

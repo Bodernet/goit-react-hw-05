@@ -1,6 +1,6 @@
 import { format } from "date-fns";
-import getUrlImg from "../API/themovieDbImg";
 
+const BASE_URL = "https://image.tmdb.org/t/p/w500";
 const MovieId = (movie) => {
   const formDate = (date) => {
     return format(new Date(date), "yyyy");
@@ -8,10 +8,10 @@ const MovieId = (movie) => {
   return (
     <div>
       <div>
-        {movie.movie.poster_path ? (
+        {movie.poster_path ? (
           <img
-            src={getUrlImg}
-            alt={movie.movie.title ? movie.movie.title : "movie poster"}
+            src={`${BASE_URL}${movie.poster_path}`}
+            alt={movie.title ? movie.title : "movie poster"}
           />
         ) : (
           "No data"

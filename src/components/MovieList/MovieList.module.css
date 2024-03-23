@@ -1,0 +1,18 @@
+.movieList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  height: 100%;
+  row-gap: 1em;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.movieItem {
+  display: flex;
+  gap: 15px;
+  flex-direction: column;
+  align-self: stretch;
+  border-radius: 1em;
+  width: 200px;
+}

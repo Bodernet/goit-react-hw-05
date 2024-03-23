@@ -30,7 +30,12 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+ul {
+  display: flex;
+  gap: 15px;
+  list-style-type: none;
+  flex-wrap: wrap;
+}
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

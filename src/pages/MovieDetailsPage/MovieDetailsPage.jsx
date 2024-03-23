@@ -3,6 +3,7 @@ import css from "./MoviDetailsPage.module.css";
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMoviesById } from "../../components/API/apiTMDB";
+import { getImg } from "../../components/API/themovieDbImg";
 
 const getNavLinkClassNames = ({ isActive }) =>
   clsx(css.addItems, {
@@ -19,6 +20,7 @@ const MovieDetailsPage = () => {
 
   useEffect(() => {
     async function fetchMoviesById() {
+      setMovieData({});
       try {
         // setIsError(false);
         // setIsLoading(true);
@@ -35,11 +37,43 @@ const MovieDetailsPage = () => {
     fetchMoviesById();
   }, [movieId]);
 
+  const vote = Math.floor(movieData.vote_average * 10);
+  const year = movieData.release_date
+    ? new Date(movieData.release_date).getFullYear()
+    : "?";
+
   return (
     <div>
       <NavLink to={backLinkRef.current}>Go back</NavLink>
-      <div>
-        <MovieDetailsPage movie={movieData} /> :{" "}
+      <div className={css.mainMovieInfo}>
+        <img
+          className={css.movieImg}
+          src={getImg(movieData.poster_path)}
+          width="500"
+          alt={movieData.title}
+        />
+        <div className={css.movieInfo}>
+          <h1>
+            {movieData.title} ({year})
+          </h1>
+          <p>User Score: {vote}% </p>
+          <span>
+            <h2>Overview:</h2>
+            <p>{movieData.overview}</p>
+          </span>
+
+          <span>
+            <h2>Genres:</h2>
+
+            {movieData.genres && (
+              <p className={css.genres}>
+                {movieData.genres.map((genre) => {
+                  return <span key={genre.id}>{genre.name}</span>;
+                })}
+              </p>
+            )}
+          </span>
+        </div>
       </div>
       <p>Aditional information</p>
       <ul>

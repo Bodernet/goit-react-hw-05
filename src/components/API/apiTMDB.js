@@ -30,8 +30,8 @@ const getMovie = async () => {
   return data;
 };
 
-const getMovieQuery = async (query) => {
-  const queryUrl = `${BASE_URL}search/movie?query=${query}&${params}`;
+const getMovieQuery = async (searchQuery) => {
+  const queryUrl = `${BASE_URL}search/movie?query=${searchQuery}&${params}`;
   const { data } = await axios.get(queryUrl, authorization);
   return data;
 };
