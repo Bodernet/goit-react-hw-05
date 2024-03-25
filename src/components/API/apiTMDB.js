@@ -1,14 +1,5 @@
 import axios from "axios";
 
-// const getMovie = axios.create({
-//   baseURL: "https://api.themoviedb.org/3",
-//    headers: {
-//     Authorization:
-//       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMTRkNjc1ZTliZmVhYTU5MzExNzI0ZTFiOTRlODAwNSIsInN1YiI6IjY1ZmFkMmEyMGJjNTI5MDE2MmFkZmNjOSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.TlQXXUa7zQbE4YZMOoxDTVGFLKjBH3r0rnmNZwIuh_g",
-//     accept: "application/json",
-//   },
-// });
-
 const BASE_URL = "https://api.themoviedb.org/3/";
 
 const authorization = {
@@ -41,4 +32,22 @@ const getMoviesById = async (movieId) => {
   return data;
 };
 
-export { getMovie, getMovieQuery, getMoviesById };
+const getMovieCast = async (movieId) => {
+  const castUrl = `${BASE_URL}movie/${movieId}/credits?${params}`;
+  const { data } = await axios.get(castUrl, authorization);
+  return data;
+};
+
+const getMovieReviews = async (movieId) => {
+  const reviewsUrl = `${BASE_URL}movie/${movieId}/reviews?${params}`;
+  const { data } = await axios.get(reviewsUrl, authorization);
+  return data;
+};
+
+export {
+  getMovie,
+  getMovieQuery,
+  getMoviesById,
+  getMovieCast,
+  getMovieReviews,
+};

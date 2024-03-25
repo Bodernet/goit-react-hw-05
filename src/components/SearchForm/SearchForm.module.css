@@ -1,3 +1,41 @@
 .form {
+  position: relative;
   display: flex;
+  align-items: center;
+  border-top: 4px solid var(--dark-green);
+  border-bottom: 4px solid var(--dark-green);
+  background-color: var(--main-green);
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.formInput {
+  position: relative;
+  padding: 10px 20px;
+  display: flex;
+  text-decoration: none;
+  color: black;
+  background-color: aqua;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 14px;
+}
+.formInput:active {
+  border: 1px solid aqua;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-left: 10px;
+  background-color: aqua;
+  border: 1px solid black;
+}
+
+.search:hover,
+.search:focus {
+  background: darkorange;
 }

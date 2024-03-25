@@ -1,20 +1,20 @@
 import { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
+import Loader from "../Loader/Loader";
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
-const MoviesPage = lazy(() => import("../../pages/MoviesPage"));
+const MoviesPage = lazy(() => import("../../pages/MoviesPage/MoviesPage"));
 const MovieDetailsPage = lazy(() =>
   import("../../pages/MovieDetailsPage/MovieDetailsPage")
 );
+
 const NotFoundPage = lazy(() => import("../../pages/NotFoundPage"));
 const MovieCast = lazy(() => import("../MovieCast/MovieCast"));
 const MovieReviews = lazy(() => import("../MovieReviews/MovieReviews"));
-// import css from "../App/App.module.css";
-// import Loader from "../components/Loader/Loader";
 
 function App() {
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <Navigation />
       <main>
         <Routes>

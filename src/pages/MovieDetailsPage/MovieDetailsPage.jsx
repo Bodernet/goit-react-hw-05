@@ -4,36 +4,35 @@ import { useEffect, useRef, useState } from "react";
 import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import { getMoviesById } from "../../components/API/apiTMDB";
 import { getImg } from "../../components/API/themovieDbImg";
+import Loader from "../../components/Loader/Loader";
+import MessageError from "../../components/MessageError/MessageError";
 
-const getNavLinkClassNames = ({ isActive }) =>
-  clsx(css.addItems, {
+const getNavLinkAdInfo = ({ isActive }) =>
+  clsx(css.castRev, {
     [css.active]: isActive,
   });
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieData, setMovieData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [isError, setIsError] = useState(false);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const location = useLocation();
-  const backLinkRef = useRef(location.state ?? "/");
+  const backLinkRef = useRef(location.state?.from ?? "/");
 
   useEffect(() => {
     async function fetchMoviesById() {
       setMovieData({});
       try {
-        // setIsError(false);
-        // setIsLoading(true);
-
+        setIsError(false);
+        setIsLoading(true);
         const data = await getMoviesById(movieId);
         setMovieData(data);
       } catch (err) {
-        // setIsError(true);
+        setIsError(true);
       } finally {
-        // setIsLoading(false);
+        setIsLoading(false);
       }
     }
-
     fetchMoviesById();
   }, [movieId]);
 
@@ -43,55 +42,68 @@ const MovieDetailsPage = () => {
     : "?";
 
   return (
-    <div>
-      <NavLink to={backLinkRef.current}>Go back</NavLink>
-      <div className={css.mainMovieInfo}>
-        <img
-          className={css.movieImg}
-          src={getImg(movieData.poster_path)}
-          width="500"
-          alt={movieData.title}
-        />
-        <div className={css.movieInfo}>
-          <h1>
-            {movieData.title} ({year})
-          </h1>
-          <p>User Score: {vote}% </p>
-          <span>
-            <h2>Overview:</h2>
-            <p>{movieData.overview}</p>
-          </span>
+    <>
+      {isLoading && <Loader />}
+      {isError && <MessageError />}
 
-          <span>
-            <h2>Genres:</h2>
+      {!isLoading &&
+        !isError &&
+        (movieData ? (
+          <div>
+            <NavLink className={css.goBack} to={backLinkRef.current}>
+              Go back
+            </NavLink>
+            <div className={css.movieData}>
+              <img
+                className={css.movieImg}
+                src={getImg(movieData.poster_path)}
+                width="300"
+                alt={movieData.title}
+              />
+              <div>
+                <h1>
+                  {movieData.title} ({year})
+                </h1>
+                <p>User Score: {vote}% </p>
+                <span>
+                  <h2>Overview:</h2>
+                  <p>{movieData.overview}</p>
+                </span>
 
-            {movieData.genres && (
-              <p className={css.genres}>
-                {movieData.genres.map((genre) => {
-                  return <span key={genre.id}>{genre.name}</span>;
-                })}
-              </p>
-            )}
-          </span>
-        </div>
-      </div>
-      <p>Aditional information</p>
-      <ul>
-        <li>
-          <NavLink className={getNavLinkClassNames} to="cast">
-            Cast
-          </NavLink>
-        </li>
-        <li>
-          <NavLink className={getNavLinkClassNames} to="reviews">
-            Reviews
-          </NavLink>
-        </li>
-      </ul>
-      <Outlet />
-      {/* {isLoading && <Loader />}
-    {isScrollToTop && <ScrollToTop scrollToTop={scrollToTop} />} */}
-    </div>
+                <span>
+                  <h2>Genres:</h2>
+
+                  {movieData.genres && (
+                    <p className={css.genres}>
+                      {movieData.genres.map((genre) => {
+                        return <span key={genre.id}>{genre.name}</span>;
+                      })}
+                    </p>
+                  )}
+                </span>
+              </div>
+            </div>
+            <div className={css.addIn}>
+              <p>Aditional information</p>
+              <ul>
+                <li>
+                  <NavLink className={getNavLinkAdInfo} to="cast">
+                    Cast
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className={getNavLinkAdInfo} to="reviews">
+                    Reviews
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+            <Outlet />
+          </div>
+        ) : (
+          <p className={css.infoMessage}>No data to display</p>
+        ))}
+    </>
   );
 };
 

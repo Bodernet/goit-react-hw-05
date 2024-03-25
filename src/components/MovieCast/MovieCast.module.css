@@ -1,0 +1,26 @@
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  row-gap: 10px;
+  justify-content: center;
+  flex-direction: row;
+}
+.item {
+  width: 110px;
+  height: 150px;
+  padding: 8px;
+  font-size: 12px;
+  text-align: center;
+}
+.name {
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+.castCard {
+  overflow: hidden;
+  height: 236px;
+  text-align: center;
+}

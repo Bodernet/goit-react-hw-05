@@ -1,0 +1,28 @@
+.container {
+  margin: 30px 0px;
+  padding: 0;
+}
+
+.list {
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+.item {
+  display: flex;
+  flex-direction: column;
+
+  padding: 10px;
+  background-color: rgb(237, 241, 233);
+  border-radius: 10px;
+  border: 1px solid;
+}
+.itemInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
